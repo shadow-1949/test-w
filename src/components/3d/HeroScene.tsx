@@ -60,16 +60,6 @@ function Laptop() {
   );
 }
 
-function OrbitPlatform() {
-  const ring = useRef<THREE.Group>(null);
-  useFrame((_, delta) => { if (ring.current) ring.current.rotation.z += delta * 0.12; });
-  return <group ref={ring} position={[0, -1.35, 0]}>
-    <mesh><cylinderGeometry args={[2.25, 2.7, 0.18, 96]} /><meshPhysicalMaterial color="#101533" metalness={0.8} roughness={0.2} emissive="#20286b" emissiveIntensity={0.4} /></mesh>
-    <mesh position={[0, 0.1, 0]}><torusGeometry args={[2.35, 0.035, 12, 96]} /><meshBasicMaterial color="#6958ff" toneMapped={false} /></mesh>
-    <mesh position={[0, 0.12, 0]}><torusGeometry args={[2.03, 0.018, 12, 96]} /><meshBasicMaterial color="#27c7ff" toneMapped={false} /></mesh>
-  </group>;
-}
-
 function Badge({ children, position, color }: { children: string; position: [number, number, number]; color: string }) {
   return <Float speed={1.5} rotationIntensity={0.35} floatIntensity={0.45}><Html position={position} center distanceFactor={5}><div style={{ borderColor: `${color}88`, boxShadow: `0 0 24px ${color}55`, color }} className="flex h-12 w-12 items-center justify-center rounded-xl border bg-[#111638]/90 font-mono text-xl font-bold backdrop-blur-md">{children}</div></Html></Float>;
 }
@@ -78,7 +68,7 @@ function Scene() {
   const scroll = usePageScroll();
   const group = useRef<THREE.Group>(null);
   useFrame((_, delta) => { if (group.current) group.current.rotation.y = THREE.MathUtils.damp(group.current.rotation.y, scroll.current * 0.35, 3, delta); });
-  return <group ref={group}><Laptop /><OrbitPlatform /><Badge position={[-2.25, 1.7, -0.5]} color="#777cff">&lt;/&gt;</Badge><Badge position={[2.25, 1.15, -0.4]} color="#d6b4ff">&#123;...&#125;</Badge><Badge position={[2.55, -0.55, 0.3]} color="#ffd35a">JS</Badge><Badge position={[-2.4, -0.5, 0.3]} color="#43c9ff">TS</Badge></group>;
+  return <group ref={group}><Laptop /><Badge position={[-2.25, 1.7, -0.5]} color="#777cff">&lt;/&gt;</Badge><Badge position={[2.25, 1.15, -0.4]} color="#d6b4ff">&#123;...&#125;</Badge><Badge position={[2.55, -0.55, 0.3]} color="#ffd35a">JS</Badge><Badge position={[-2.4, -0.5, 0.3]} color="#43c9ff">TS</Badge></group>;
 }
 
 export function HeroScene() {
