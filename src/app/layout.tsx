@@ -1,11 +1,8 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "NextGen Coders | Innovate. Build. Inspire.",
@@ -19,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark scroll-smooth">
-      <body className={`${inter.className} antialiased bg-background text-foreground`}>
+      <body className="antialiased bg-background text-foreground">
         {/* Background Layers (Grid + Glows) */}
         <div className="fixed inset-0 -z-10 grid-bg" />
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">

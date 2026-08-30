@@ -18,6 +18,15 @@ const filters = [
   { id: 'resources', label: 'Resources' },
 ];
 
+type SearchResult = {
+  key: string;
+  title: string;
+  description: string;
+  type: string;
+  path: string;
+  icon: typeof Code2;
+};
+
 export default function SearchPage() {
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState('all');
@@ -26,9 +35,36 @@ export default function SearchPage() {
     if (!query) return [];
     
     const q = query.toLowerCase();
-    const matchedProjects = mockProjects.filter(p => p.title.toLowerCase().includes(q) || p.technologies.join(' ').toLowerCase().includes(q)).map(p => ({ ...p, type: 'Project', path: `/projects/${p.slug}`, icon: Code2 }));
-    const matchedBlogs = mockBlogPosts.filter(b => b.title.toLowerCase().includes(q) || b.excerpt.toLowerCase().includes(q)).map(b => ({ ...b, type: 'Blog', path: `/blog/${b.slug}`, icon: BookOpen }));
-    const matchedResources = mockResources.filter(r => r.title.toLowerCase().includes(q) || r.description.toLowerCase().includes(q)).map(r => ({ ...r, type: 'Resource', path: `/resources`, icon: FileText }));
+    const matchedProjects: SearchResult[] = mockProjects
+      .filter(p => p.title.toLowerCase().includes(q) || p.technologies.join(' ').toLowerCase().includes(q))
+      .map(p => ({
+        key: p.slug,
+        title: p.title,
+        description: p.shortDescription,
+        type: 'Project',
+        path: `/projects/${p.slug}`,
+        icon: Code2,
+      }));
+    const matchedBlogs: SearchResult[] = mockBlogPosts
+      .filter(b => b.title.toLowerCase().includes(q) || b.excerpt.toLowerCase().includes(q))
+      .map(b => ({
+        key: b.slug,
+        title: b.title,
+        description: b.excerpt,
+        type: 'Blog',
+        path: `/blog/${b.slug}`,
+        icon: BookOpen,
+      }));
+    const matchedResources: SearchResult[] = mockResources
+      .filter(r => r.title.toLowerCase().includes(q) || r.description.toLowerCase().includes(q))
+      .map(r => ({
+        key: r.id,
+        title: r.title,
+        description: r.description,
+        type: 'Resource',
+        path: `/resources`,
+        icon: FileText,
+      }));
 
     let combined = [...matchedProjects, ...matchedBlogs, ...matchedResources];
     
@@ -94,7 +130,7 @@ export default function SearchPage() {
 
         {results.map((item, index) => (
           <motion.div
-            key={`${item.type}-${item.slug || item.id}`}
+            key={`${item.type}-${item.key}`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
@@ -114,7 +150,7 @@ export default function SearchPage() {
                   {item.title}
                 </h3>
                 <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
-                  {item.shortDescription || item.excerpt || item.description}
+                  {item.description}
                 </p>
               </div>
               <ArrowRight className="h-5 w-5 text-slate-400 group-hover:text-primary group-hover:translate-x-1 transition-all mt-2" />
