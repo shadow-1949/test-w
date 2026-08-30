@@ -1,0 +1,70 @@
+/* src/app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 234 55% 3%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --primary: 217 91% 60%; /* Bright tech blue */
+    --secondary: 217 32% 17.5%;
+    --muted: 217 32% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --border: 217 32% 20%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Premium Glowing Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0f172a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #3b82f6, #06b6d4);
+    border-radius: 10px;
+  }
+}
+
+/* Utility for glowing text */
+.glow-text {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+/* Grid background pattern */
+.grid-bg {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.landing-page {
+  background: radial-gradient(circle at 73% 42%, rgba(43, 43, 125, 0.18), transparent 30%), #030512;
+}
+
+.landing-grid {
+  background-image: linear-gradient(rgba(114, 121, 255, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(114, 121, 255, 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black, transparent 80%);
+}
+
+.neon-gradient {
+  background: linear-gradient(100deg, #8b80ff 0%, #a844ff 45%, #d76cff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 34px rgba(145, 77, 255, 0.25);
+}

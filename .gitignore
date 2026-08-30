@@ -1,0 +1,11 @@
+node_modules/
+.next/
+out/
+.env*
+certificates/
+*.tsbuildinfo
+
+# Local editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
